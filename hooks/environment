@@ -1,0 +1,60 @@
+#!/bin/bash
+
+set -euo pipefail
+
+main() {
+  echo "Reading meta-data ..."
+  env_list=$(plugin_read_list | evaluate_key_item)
+
+  echo "Exporting ${#env_list} bytes of env"
+  set -a
+  eval "$env_list"
+  set +a
+}
+
+function plugin_read_list() {
+  local prefix="BUILDKITE_PLUGIN_METADATA_ENV_KEYS"
+  local parameter="${prefix}_0"
+
+  if [[ -n "${!parameter:-}" ]]; then
+    local i=0
+    local parameter="${prefix}_${i}"
+    while [[ -n "${!parameter:-}" ]]; do
+      echo "${!parameter}"
+      i=$((i+1))
+      parameter="${prefix}_${i}"
+    done
+  fi
+}
+
+function evaluate_key_item() {
+  while IFS=$'\n' read -r key_item ; do
+    read_meta_data "$key_item"
+  done
+}
+
+function read_meta_data() {
+  local key_item="$1"
+  local value
+  local meta_data_key
+  local meta_data_key_alias
+  local mapped_key
+
+  IFS='=' read -ra key_mapped <<< "$key_item"
+
+  meta_data_key=${key_mapped[0]:-}
+  meta_data_key_alias=${key_mapped[1]:-}
+  mapped_key=${meta_data_key_alias:-$meta_data_key}
+
+  value=$(buildkite-agent meta-data get "$meta_data_key")
+
+  if [[ -n "$value" ]]; then
+    echo "${mapped_key}=(${#value} chars)" >&2;
+    echo "${mapped_key}=${value}"
+  else
+    echo "Could not read meta-data: ${meta_data_key}" >&2;
+    exit 1
+  fi
+}
+
+main
