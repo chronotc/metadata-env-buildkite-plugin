@@ -20,7 +20,7 @@ steps:
             - hello=HELLO
   - label: ":bomb: Fetching meta-data for container"
     commands:
-      - test $$FOO = bara
+      - test $$FOO = bar
     plugins:
       - chronotc/metadata-env#${BUILDKITE_COMMIT}:
           keys:
