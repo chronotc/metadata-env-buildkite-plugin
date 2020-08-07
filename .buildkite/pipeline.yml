@@ -9,10 +9,10 @@ steps:
           run: tests
   - label: ":test_tube: Setting meta data"
     commands:
-      - "buildkite-agent meta-data set "hello" "world"
+      - 'buildkite-agent meta-data set "hello" "world"'
   - label: ":bomb: Fetching meta-data"
     commands:
-      - "[ "$$HELLO" != "world" ] && exit 1"
+      - '[ "$$HELLO" != "world" ] && exit 1'
     plugins:
       - chronotc/metadata-env#${BUILDKITE_COMMIT}:
           keys:
