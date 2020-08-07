@@ -18,6 +18,42 @@ https://buildkite.com/docs/agent/v3/cli-meta-data
 
 ## Example
 
+### Simple
+```yml
+steps:
+  - label: "Setting meta-data"
+    commands:
+      - 'buildkite-agent meta-data set "hello" "world"'
+  - label: "Fetching meta-data"
+    commands:
+      - test $$HELLO = world
+    plugins:
+      - chronotc/metadata-env#v1.0.0:
+          keys:
+            - hello=HELLO
+```
+
+### Docker
+```yml
+steps:
+  - label: "Setting meta data"
+    commands:
+      - 'buildkite-agent meta-data set "foo" "bar"'
+  - label: "Fetching meta-data for container"
+    commands:
+      - test $$FOO = bar
+    plugins:
+      - chronotc/metadata-env#v1.0.0:
+          keys:
+            - foo=FOO
+      - docker#v3.5.0:
+          image: "alpine:3.7"
+          environment:
+            - FOO
+```
+
+### Block step
+
 ```yml
 steps:
   - block: "Request Release"
@@ -36,7 +72,7 @@ steps:
             value: "production"
           - label: "Development"
             value: "development"
-  - command: echo \$NODE_ENV
+  - command: echo $$NODE_ENV
     plugins:
       - chronotc/metadata-env#v1.0.0:
           keys:
