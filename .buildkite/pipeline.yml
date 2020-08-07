@@ -12,7 +12,7 @@ steps:
       - 'buildkite-agent meta-data set "hello" "world"'
   - label: ":bomb: Fetching meta-data"
     commands:
-      - 'echo \$HELLO'
+      - test $$HELLO = world
     plugins:
       - chronotc/metadata-env#${BUILDKITE_COMMIT}:
           keys:
