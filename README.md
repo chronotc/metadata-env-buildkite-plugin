@@ -1,10 +1,20 @@
-# metadata-env-buildkite-plugin
+# metadata-env-buildkite-plugin [![Build status](https://badge.buildkite.com/8b75eb87da8457a67c926458f45aac395a02a9f49994dd767b.svg?branch=master)](https://buildkite.com/kuda/metadata-env-buildkite-plugin)
 
 Buildkite plugin to inject buildkite-agent metadata into environment
 
-This is particularly useful as **block step** values are saved in a build's **meta-data**.
+Due to limitations of the plugin, the environment variables generated from the plugin can only be accessed during runtime
 
+It is recommended that these environment variables are accessed by escaping the `$` character
+
+```
+\$FOO or $$FOO
+```
+
+https://buildkite.com/docs/agent/v3/cli-pipeline#environment-variable-substitution
+
+This is particularly useful as **block step** values are saved in a build's **meta-data**.
 https://buildkite.com/docs/pipelines/block-step
+https://buildkite.com/docs/agent/v3/cli-meta-data
 
 ## Example
 
