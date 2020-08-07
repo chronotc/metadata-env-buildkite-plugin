@@ -7,4 +7,14 @@ steps:
     plugins:
       - docker-compose#v3.3.0:
           run: tests
+  - label: ":test_tube: Setting meta data"
+    command:
+      - "buildkite-agent meta-data set "hello" "world"
+  - label: ":bomb: Fetching meta-data"
+    command:
+      - "[ "$$HELLO" != "world" ] && exit 1"
+    plugins:
+      - chronotc/metadata-env#${BUILDKITE_COMMIT}:
+          keys:
+            - hello=HELLO #remaps node-env key to NODE_ENV <key>=<alias>
 
