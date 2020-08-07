@@ -1,0 +1,31 @@
+steps:
+  - label: ":lint-roller: Lint"
+    plugins:
+      - docker-compose#v3.3.0:
+          run: lint
+  - label: ":test_tube: Tests"
+    plugins:
+      - docker-compose#v3.3.0:
+          run: tests
+  - label: ":test_tube: Setting meta data"
+    commands:
+      - 'buildkite-agent meta-data set "hello" "world"'
+      - 'buildkite-agent meta-data set "foo" "bar"'
+  - label: ":bomb: Fetching meta-data"
+    commands:
+      - test $$HELLO = world
+    plugins:
+      - chronotc/metadata-env#${BUILDKITE_COMMIT}:
+          keys:
+            - hello=HELLO
+  - label: ":bomb: Fetching meta-data for container"
+    commands:
+      - test $$FOO = bar
+    plugins:
+      - chronotc/metadata-env#${BUILDKITE_COMMIT}:
+          keys:
+            - foo=FOO
+      - docker#v3.5.0:
+          image: "alpine:3.7"
+          environment:
+            - FOO
