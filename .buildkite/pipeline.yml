@@ -13,14 +13,14 @@ steps:
       - 'buildkite-agent meta-data set "foo" "bar"'
   - label: ":bomb: Fetching meta-data"
     commands:
-      - test $$HELLO = worlda
+      - test $$HELLO = world
     plugins:
       - chronotc/metadata-env#${BUILDKITE_COMMIT}:
           keys:
             - hello=HELLO
   - label: ":bomb: Fetching meta-data for container"
     commands:
-      - test $$FOO = bar
+      - test $$FOO = bara
     plugins:
       - chronotc/metadata-env#${BUILDKITE_COMMIT}:
           keys:
