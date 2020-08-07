@@ -26,8 +26,8 @@ steps:
           keys:
             - foo=FOO
       - docker#v3.5.0:
-        image: "alpine:3.7"
-        environment:
-          - FOO
+          image: "alpine:3.7"
+          environment:
+            - FOO
 
 
