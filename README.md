@@ -6,7 +6,6 @@ This is particularly useful as **block step** values are saved in a build's **me
 
 https://buildkite.com/docs/pipelines/block-step
 
-
 ## Example
 
 ```yml
@@ -29,8 +28,8 @@ steps:
             value: "development"
   - command: echo \$NODE_ENV
     plugins:
-      ACloudGuru/metadata-env:
-        keys:
-          - ROLE
-          - node-env=NODE_ENV #remaps node-env key to NODE_ENV <key>=<alias>
+      - chronotc/metadata-env#v1.0.0:
+          keys:
+            - ROLE
+            - node-env=NODE_ENV #remaps node-env key to NODE_ENV <key>=<alias>
 ```

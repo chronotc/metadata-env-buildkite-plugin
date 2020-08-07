@@ -1,0 +1,10 @@
+name: Metadata Env
+description: Read metadata values and place into environment
+author: https://github.com/chronotc
+requirements:
+  - buildkite-agent
+configuration:
+  properties:
+    keys:
+      type: array
+      minimum: 1
