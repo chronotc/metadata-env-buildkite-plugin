@@ -1,6 +1,6 @@
-# metadata-env-buildkite-plugin [![Build status](https://badge.buildkite.com/8b75eb87da8457a67c926458f45aac395a02a9f49994dd767b.svg?branch=master)](https://buildkite.com/kuda/metadata-env-buildkite-plugin)
+# affirm-metadata-env-buildkite-plugin
 
-Buildkite plugin to inject buildkite-agent metadata into environment
+Affirm fork of the Buildkite plugin to inject buildkite-agent metadata into environment
 
 Due to limitations of the plugin, the environment variables generated from the plugin can only be accessed during runtime
 

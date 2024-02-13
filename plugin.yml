@@ -1,6 +1,6 @@
-name: Metadata Env
+name: Affirm Metadata Env
 description: Read metadata values and place into environment
-author: https://github.com/chronotc
+author: https://github.com/Affirm
 requirements:
   - buildkite-agent
 configuration:
