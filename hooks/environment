@@ -47,11 +47,9 @@ function read_meta_data() {
   mapped_key=${meta_data_key_alias:-$meta_data_key}
 
   value=$(buildkite-agent meta-data get "$meta_data_key")
-  value=$(echo "${value}" | tr '\n' " " | sed 's/ *$//')
 
   if [[ -n "$value" ]]; then
     echo "${mapped_key}=(${#value} chars)" >&2;
-    echo "${mapped_key}=\"${value}\""
   else
     echo "Could not read meta-data: ${meta_data_key}" >&2;
     exit 1
